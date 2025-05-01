@@ -16,7 +16,7 @@ struct FrameBootcamp: View {
                     .font(.system(size: 64))
 //                    .border(Color.gray)
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Murodjon Turobov ")
+                    Text("Murodjon Turobov 12433254234")
                         .lineLimit(1)
                         .font(.system(size: 17))
                     Text("iOS Developer")
