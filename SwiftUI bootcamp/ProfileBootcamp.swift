@@ -4,15 +4,118 @@
 //
 //  Created by Murodjon Turobov on 05/05/25.
 //
-
 import SwiftUI
 
-struct ProfileBootcamp: View {
+struct SettingsView: View {
+    
+    @State private var isOn = true
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading, spacing: 0) {
+                 HStack {
+                     Text("Sozlamalar")
+                         .font(.system(size: 20, weight: .medium))
+                         .bold()
+                     Spacer()
+                 }
+                 .padding(.top, 4)
+                 .padding(.bottom, 4)
+                 .padding(.horizontal)
+
+                ScrollView {
+                    ZStack {
+                        Color("#F6F6F9")
+                            .ignoresSafeArea()
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Image(systemName: "person.crop.circle")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 60, height: 60)
+                                    .clipShape(Circle())
+                            
+                                VStack(alignment: .leading) {
+                                    Text("Murodjon Turobov")
+                                        .font(.system(size: 18, weight: .semibold))
+                                    Text("Mijoz")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(.gray)
+                                }
+                                
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(.gray)
+                            }
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(16)
+                            .shadow(color: Color.black.opacity(0.08), radius: 4, x: 0, y: 0)
+
+                            Text("Asosiy")
+                                .font(.system(size: 18, weight: .semibold))
+//                                .padding(.horizontal)
+                                .padding(.bottom, 8)
+                                .padding(.top, 24)
+                                .foregroundColor(.black)
+                         
+
+                            HStack {
+                                Image(systemName: "bell.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 24, height: 24)
+                            
+                                VStack(alignment: .leading) {
+                                    Text("Bildirishnoma")
+                                        .font(.system(size: 18))
+                                }
+                                
+                                Spacer()
+                                Toggle("", isOn: $isOn)
+                                        .toggleStyle(SwitchToggleStyle(tint: Color.purple))
+                                        .labelsHidden()
+                  
+                            }
+                            .padding(EdgeInsets(top: 16.5, leading: 19, bottom: 16.5, trailing: 16))
+                            .background(Color.white)
+                            .cornerRadius(16)
+                            .shadow(color: Color.black.opacity(0.08), radius: 4, x: 0, y: 0)
+                            
+                            Spacer()
+                            
+                            HStack {
+                                Image(systemName: "person.fill.checkmark.rtl")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 24, height: 24)
+                            
+                                VStack(alignment: .leading) {
+                                    Text("Mutaxassis bo'lib kirish")
+                                        .font(.system(size: 18))
+                                }
+                                
+                                Spacer()
+                                
+                        
+                            }
+                            .padding(EdgeInsets(top: 16.5, leading: 16, bottom: 16.5, trailing: 16))
+                            .background(Color.white)
+                            .cornerRadius(16)
+                            .shadow(color: Color.black.opacity(0.08), radius: 4, x: 0, y: 0)
+                            
+                            
+                        }
+                        
+                        
+                        .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
+
+                }
+                    
+            }
+        }
     }
 }
 
 #Preview {
-    ProfileBootcamp()
+    SettingsView()
 }

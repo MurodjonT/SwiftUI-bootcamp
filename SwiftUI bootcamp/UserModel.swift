@@ -8,5 +8,9 @@
 struct User {
     let name: String
     let role: String
-    let imageName: String // SF Symbol nomi yoki asset
+    let imageName: String
+    let lites: String
+    let username: String
+    let ages: Int
+    let dateInfo: String
 }

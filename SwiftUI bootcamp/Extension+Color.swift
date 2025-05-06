@@ -7,12 +7,17 @@
 
 import SwiftUI
 
-struct Extension_COlor: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
 
-#Preview {
-    Extension_COlor()
+extension Color {
+    init(_ hex: String) {
+        let hex = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        var rgb: UInt64 = 0
+        Scanner(string: hex.hasPrefix("#") ? String(hex.dropFirst()) : hex).scanHexInt64(&rgb)
+
+        let r = Double((rgb >> 16) & 0xFF) / 255.0
+        let g = Double((rgb >> 8) & 0xFF) / 255.0
+        let b = Double(rgb & 0xFF) / 255.0
+
+        self.init(.sRGB, red: r, green: g, blue: b)
+    }
 }
