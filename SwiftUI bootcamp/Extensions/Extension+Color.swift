@@ -21,3 +21,15 @@ extension Color {
         self.init(.sRGB, red: r, green: g, blue: b)
     }
 }
+
+
+
+extension Color {
+    static func random() -> Color {
+        return Color(
+            red: .random(in: 0...1),
+            green: .random(in: 0...1),
+            blue: .random(in: 0...1)
+        )
+    }
+}
