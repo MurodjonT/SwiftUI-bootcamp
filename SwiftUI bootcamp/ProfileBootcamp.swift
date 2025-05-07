@@ -12,10 +12,9 @@ struct SettingsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-                 HStack {
+                  HStack {
                      Text("Sozlamalar")
-                         .font(.system(size: 20, weight: .medium))
-                         .bold()
+                         .font(.system(size: 24, weight: .semibold))
                      Spacer()
                  }
                  .padding(.top, 4)
@@ -23,9 +22,6 @@ struct SettingsView: View {
                  .padding(.horizontal)
 
                 ScrollView {
-                    ZStack {
-                        Color("#F6F6F9")
-                            .ignoresSafeArea()
                         VStack(alignment: .leading) {
                             HStack {
                                 Image(systemName: "person.crop.circle")
@@ -53,11 +49,8 @@ struct SettingsView: View {
 
                             Text("Asosiy")
                                 .font(.system(size: 18, weight: .semibold))
-//                                .padding(.horizontal)
                                 .padding(.bottom, 8)
                                 .padding(.top, 24)
-                                .foregroundColor(.black)
-                         
 
                             HStack {
                                 Image(systemName: "bell.fill")
@@ -108,9 +101,22 @@ struct SettingsView: View {
                         
                         
                         .padding(EdgeInsets(top: 24, leading: 16, bottom: 24, trailing: 16))
+                    
+            }
+                .background(Color(.systemGray6))
+            
+            List {
+                Section {
+                    Toggle("Bildirishnoma", systemImage: "bell.fill", isOn: $isOn)
+                } header: {
+                    Text("Asosiy")
+                        .font(.system(size: 18, weight: .semibold))
+                        .textCase(.none)
+                        .padding(.horizontal, -20)
 
                 }
-                    
+                .foregroundStyle(Color.primary)
+                .tint(Color.purple)
             }
         }
     }
