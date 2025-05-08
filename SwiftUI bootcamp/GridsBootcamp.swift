@@ -10,9 +10,13 @@ import SwiftUI
 struct GridsLayout: View {
     
     var body: some View {
-        GridFlexible()
-        FixedFGrid()
-        AdaptiveGrid()
+        ScrollView{
+            GridFlexible()
+            FixedFGrid()
+            ProductGridView()
+        }
+        .background(Color(.systemGray6))
+
     }
 }
 
@@ -72,7 +76,7 @@ struct FixedFGrid: View {
 struct AdaptiveGrid: View {
     
     let gridItem = [
-        GridItem(.adaptive(minimum: 150))
+        GridItem(.adaptive(minimum: 200))
     ]
                  
     var body: some View {
@@ -91,4 +95,63 @@ struct AdaptiveGrid: View {
                       .padding()
     }
 }
+
+struct Product: Identifiable {
+    let id = UUID()
+    let name: String
+    let imageName: String
+    let price: String
+}
+
+let sampleProducts = [
+    Product(name: "T-shirt", imageName: "shirt", price: "$19.99"),
+    Product(name: "Boots", imageName: "boots1", price: "$49.99"),
+    Product(name: "Hat", imageName: "hat", price: "$14.99"),
+    Product(name: "Scarf", imageName: "scarf", price: "$14.99")
+]
+
+struct ProductGridView: View {
+    let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    
+    var body: some View {
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 10) {
+                ForEach(sampleProducts) { product in
+                    HStack {
+                        VStack(alignment: .center, spacing: 8) {            //question nega sidelarda padding turopti
+                            Image(product.imageName)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 100)
+                            HStack(spacing: 45) {
+                                Text(product.name)
+                                    .foregroundStyle(.primary)
+                                    .font(.headline)
+                                Text(product.price)
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                               
+                            }
+                            Image(systemName: "cart")
+                                .foregroundColor(.blue)
+                                .frame(maxWidth: .infinity, alignment: .center)
+//                                .border(Color.blue, width: 1)
+
+                            
+                        }
+                        .padding(0)
+//                        .border(Color.red, width: 1)
+                    }
+                    .padding(20)
+                    .background(Color.white)
+                    .clipShape(.rect(cornerRadius: 12))
+                    .shadow(radius: 2)
+                }
+            }
+            .padding()
+        }
+    }
+}
+
+
 
