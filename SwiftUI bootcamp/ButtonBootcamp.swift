@@ -99,7 +99,7 @@ struct ButtonBootcamp: View {
                 .padding()
                 .background(Color.blue)
                 .foregroundColor(.white)
-                .cornerRadius(10)
+                .clipShape(.rect(cornerRadius: 18))
                 .shadow(radius: 5)
             }
             
@@ -186,7 +186,7 @@ struct IconLeftButton: View {
             .padding()
             .background(backgroundColor)
             .foregroundColor(.white)
-            .cornerRadius(10)
+            .clipShape(.rect(cornerRadius: 18))
         }
     }
 }
@@ -206,7 +206,7 @@ struct IconRightButton: View {
             .padding()
             .background(backgroundColor)
             .foregroundColor(.white)
-            .cornerRadius(10)
+            .clipShape(.rect(cornerRadius: 18))
         }
     }
 }
@@ -222,7 +222,7 @@ struct NeumorphicButton: View {
                 .padding()
                 .frame(maxWidth: .infinity)
                 .background(Color(.systemGray6))
-                .cornerRadius(12)
+                .clipShape(.rect(cornerRadius: 18))
                 .shadow(color: .white, radius: 6, x: -5, y: -5)
                 .shadow(color: .gray.opacity(0.4), radius: 6, x: 5, y: 5)
         }
@@ -250,9 +250,10 @@ struct LoadingButton: View {
                     .frame(maxWidth: .infinity)
             }
         }
-        .background(isLoading ? Color.blue : Color.blue)
+        .background(isLoading ? Color.gray : Color.blue)
         .foregroundColor(.white)
-        .cornerRadius(10)
+        .clipShape(.rect(cornerRadius: 18))
+        .padding([.leading, .trailing], 40)
     }
 }
 
