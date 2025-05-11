@@ -11,6 +11,7 @@ struct ButtonBootcamp: View {
     
     @State var title = "Hello, World!"
     @State private var isLiked = false
+    @State private var loading = false
 
     
     var body: some View {
@@ -35,6 +36,14 @@ struct ButtonBootcamp: View {
         
         //
         VStack(spacing: 20) {
+            
+
+            LoadingButton(text: "Yuborish", isLoading: $loading) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    loading = false
+                }
+            }
+
                    IconLeftButton(
                        text: "Left Icon",
                        iconName: "hand.thumbsup.fill",
@@ -50,6 +59,10 @@ struct ButtonBootcamp: View {
                    ) {
                        print("Share tugmasi bosildi")
                    }
+            
+            NeumorphicButton(text: "Neumorphic Button") {
+                print("NeumorphicButton")
+            }
                }
                .padding()
         
@@ -98,6 +111,8 @@ struct ButtonBootcamp: View {
                     .font(.largeTitle)
 //                    .animation(.smooth)
             }
+            
+            
 
         }
       
@@ -193,6 +208,51 @@ struct IconRightButton: View {
             .foregroundColor(.white)
             .cornerRadius(10)
         }
+    }
+}
+
+
+struct NeumorphicButton: View {
+    var text: String
+    var action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Text(text)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color(.systemGray6))
+                .cornerRadius(12)
+                .shadow(color: .white, radius: 6, x: -5, y: -5)
+                .shadow(color: .gray.opacity(0.4), radius: 6, x: 5, y: 5)
+        }
+    }
+}
+
+struct LoadingButton: View {
+    let text: String
+    @Binding var isLoading: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: {
+            isLoading = true
+            action()
+        }) {
+            if isLoading {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    .padding()
+                    .frame(maxWidth: .infinity)
+            } else {
+                Text(text)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+            }
+        }
+        .background(isLoading ? Color.blue : Color.blue)
+        .foregroundColor(.white)
+        .cornerRadius(10)
     }
 }
 
