@@ -10,30 +10,55 @@ import SwiftUI
 struct BindingBootcamp: View {
     
     @State private var count: Int = 0
+    @State private var BackColor: Color = .blue
+    
     var body: some View {
         VStack {
-            Text(count.description)
-            HStack {
-                Button("Increse the value") {
-                    count += 1
-                }
-                Button("Decrese the value") {
-                    count -= 1
+            Button("Change color") {
+                if BackColor == .blue {
+                    BackColor = .orange
+                } else {
+                    BackColor = .blue
                 }
             }
-            NewBindingView(sanoq: $count)
+          
+            Text(count.description)
+            HStack {
+                Button("Increse") {
+                    count += 1
+                }
+        
+                Button("Decrese") {
+                    count -= 1
+                }
+               
+
+            }
+            
+            NewBindingView(sanoq: $count, rang: $BackColor)
+
         }
+        .background(BackColor)
+        .foregroundStyle(.white)
     }
+    
+   
+    
 }
-
-
-
 
 struct NewBindingView: View {
     
     @Binding var sanoq: Int
+    @Binding var rang: Color
     
     var body: some View {
+        Button("Change color"){
+            if rang == .blue {
+                rang = .orange
+            } else {
+                rang = .blue
+            }
+        }
         HStack {
             Button("Increase") {
                 sanoq += 1
@@ -43,8 +68,11 @@ struct NewBindingView: View {
             Button("Decrese") {
                 sanoq -= 1
             }
+            
         }
+        .foregroundStyle(.white)
     }
+        
 }
 
 #Preview {
