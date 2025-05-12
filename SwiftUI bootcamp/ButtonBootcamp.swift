@@ -12,29 +12,11 @@ struct ButtonBootcamp: View {
     @State var title = "Hello, World!"
     @State private var isLiked = false
     @State private var loading = false
+    @State private var isPressed = false
 
     
     var body: some View {
-        //        Button/*("Mutaxassis", systemImage: "person") */{
-        //
-        //        } label: {
-        //            HStack {
-        //                Text("Mutahassis")
-        //                Image(systemName: "person")
-        //            }
-        //
-        //
-        //        }
-        //        MainButton("Save", action: { print("Saved!") })
         
-        //        Button("Saqlash", systemImage: "person") {
-        //
-        //        }
-        //        .buttonStyle(MainButtonStyle())
-        //        .padding(16)
-        //    }
-        
-        //
         VStack(spacing: 20) {
             
 
@@ -44,14 +26,19 @@ struct ButtonBootcamp: View {
                 }
             }
 
-                   IconLeftButton(
-                       text: "Left Icon",
-                       iconName: "hand.thumbsup.fill",
-                       backgroundColor: .blue
-                   ) {
-                       print("Like tugmasi bosildi")
-                   }
-
+            IconLeftButton(
+                        text: "Left Icon",
+                        iconName: "hand.thumbsup.fill",
+                        backgroundColor: .blue
+                    ) {
+                        isPressed = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            isPressed = false
+                        }
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .modifier(PressedAnimation(isPressed: $isPressed))
+            
                    IconRightButton(
                        text: "Right Icon",
                        iconName: "square.and.arrow.up",
@@ -112,62 +99,94 @@ struct ButtonBootcamp: View {
 //                    .animation(.smooth)
             }
             
+            Button("Saqlash") {
+                
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(Color.secondary)
             
+            MainButton("Main") {
 
+                
+            }
+            .padding()
+            
+//            .disabled(true)
+            
+            
+            Button("Saqlash main", systemImage: "person") {
+                
+            }
+            .buttonStyle(.main)
+            .padding()
+//            .disabled(true)
         }
+        
+        Button("Saqlash Large", systemImage: "person") {
+            
+        }
+        .buttonStyle(.large)
+        .padding()
+//            .disabled(true)
+    }
+        
       
     }
     //
-    //struct MainButton: View {
-    //    var titleKey: LocalizedStringKey
-    ////    var systemImage: String
-    //    var buttonRole: ButtonRole?
-    //    var color: Color = .orange
-    //    var action: () -> Void
-    //
-    //    init(_ titleKey: LocalizedStringKey, buttonRole: ButtonRole? = nil, action: @escaping () -> Void) {
-    //        self.titleKey = titleKey
-    //        self.buttonRole = buttonRole
-    //        self.action = action
-    //    }
-    //
-    //    var body: some View {
-    //        Button(action: action) {
-    //            Text(titleKey)
-    //                .font(.system(size: 16, weight: .semibold))
-    //                .padding(16)
-    //                .foregroundStyle(color)
-    //                .frame(maxWidth: .infinity)
-    //                .background(Color.blue)
-    //                .clipShape(.rect(cornerRadius: 4) )
-    //
-    //        }
-    //        .padding()
-    ////        Text("Hello World")
-    //    }
-    //}
-    //
-    //
-    //struct MainButtonStyle: ButtonStyle {
-    //
-    //    func makeBody(configuration: Configuration) -> some View {
-    //        configuration.label
-    //            .font(.system(size: 18, weight: .semibold  ))
-    //            .padding()
-    //            .foregroundStyle(.white)
-    //            .frame(maxWidth: .infinity)
-    //            .background{
-    //                if configuration.isPressed {
-    //                    Color.blue.opacity(0.4)
-    //                } else {
-    //                    Color.blue
-    //                }
-    //            }
-    //            .clipShape(.rect(cornerRadius: 12))
-    //    }
-    //
-    //}
-}
+    
+    
+    
+    struct MainButton: View {
+        var titleKey: LocalizedStringKey
+        var action: () -> Void
+    
+        init(_ titleKey: LocalizedStringKey, action: @escaping () -> Void) {
+            self.titleKey = titleKey
+            self.action = action
+        }
+    
+        var body: some View {
+            Button(action: action) {
+                Text(titleKey)
+                    .font(.system(size: 16, weight: .semibold))
+                    .padding()
+                    .foregroundStyle(Color.white)
+                    .buttonStyle(.borderedProminent)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.blue)
+                    .clipShape(.rect(cornerRadius: 4))
+    
+            }
+        }
+    }
+    
+    struct MainButton2: View {
+        var titleKey: LocalizedStringKey
+        var action: () -> Void
+    
+        init(_ titleKey: LocalizedStringKey, action: @escaping () -> Void) {
+            self.titleKey = titleKey
+            self.action = action
+        }
+    
+        var body: some View {
+            Button(action: action) {
+                Text(titleKey)
+                    .font(.system(size: 16, weight: .semibold))
+                    .padding()
+                    .foregroundStyle(Color.white)
+                    .buttonStyle(.borderedProminent)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.blue)
+                    .clipShape(.rect(cornerRadius: 4))
+    
+            }
+        }
+    }
+    
+
+
+
 
 
 
@@ -256,6 +275,79 @@ struct LoadingButton: View {
         .padding([.leading, .trailing], 40)
     }
 }
+
+
+
+struct PressedAnimation: ViewModifier {
+    @Binding var isPressed: Bool
+
+    func body(content: Content) -> some View {
+        content
+            .scaleEffect(isPressed ? 0.8 : 1.0 )
+            .animation(.easeInOut(duration: 0.15), value: isPressed)
+    }
+}
+
+struct LargeButtonStyle: ButtonStyle {
+
+    @Environment(\.isEnabled) var isEnabled
+     func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.system(size: 18, weight: .semibold  ))
+            .padding()
+            .foregroundStyle(isEnabled ? (configuration.role == .destructive ? Color.red : Color.white) : Color(.tertiaryLabel))
+            .frame(maxWidth: .infinity)
+            .background{
+                Group {
+                    if isEnabled {
+                        if configuration.isPressed {
+                            RoundedRectangle(cornerRadius: 12).fill(Color(.systemGray6))
+                        } else {
+                            RoundedRectangle(cornerRadius: 12).fill(Color(.blue))
+                        }
+                    } else {
+                        RoundedRectangle(cornerRadius: 12).fill(Color(.systemGray6))
+                    }
+                }
+            }
+            .scaleEffect(configuration.isPressed ? 0.95 : 1)
+            .animation(.bouncy, value: configuration.isPressed)
+
+   }
+
+}
+
+struct MainButtonStyle: ButtonStyle {
+
+    @Environment(\.isEnabled) var isEnabled
+     func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.system(size: 18, weight: .semibold  ))
+            .padding()
+            .foregroundStyle(isEnabled ? (configuration.role == .destructive ? Color.red : Color.white) : Color(.tertiaryLabel))
+            .frame(maxWidth: .infinity)
+            .background{
+                if isEnabled {
+                    if configuration.isPressed {
+                        RoundedRectangle(cornerRadius: 12).fill(Color(.systemGray6))
+                    } else {
+                        RoundedRectangle(cornerRadius: 12).fill(Color(.blue))
+                    }
+                } else {
+                    RoundedRectangle(cornerRadius: 12).fill(Color(.systemGray6))
+                }
+            }
+   }
+
+}
+
+extension ButtonStyle where Self == MainButtonStyle {
+    static var main: Self { MainButtonStyle() }
+    }
+
+extension ButtonStyle where Self == LargeButtonStyle {
+    static var large: Self { LargeButtonStyle() }
+    }
 
 
 #Preview {
