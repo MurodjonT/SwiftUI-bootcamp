@@ -45,7 +45,7 @@ struct MultipleOptionsView: View {
             }
             .buttonStyle(.borderedProminent)
             .clipShape(Capsule())
-            .confirmationDialog("Qaysi variantni tanlaysiz?", isPresented: $showDialog) {
+            .confirmationDialog("Which one do you choose?", isPresented: $showDialog,titleVisibility: .visible) {
                 Button("A option") { choosen = "A" }
                 Button("B option") { choosen = "B" }
                 Button("C option") { choosen = "C" }
@@ -83,6 +83,55 @@ struct NavigateAfterConfirmView: View {
 }
 
 
+struct LanguageSelectionView: View {
+    @State private var showDialog = false
+    @State private var selectedLanguage = "Not selected"
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Selected Language: \(selectedLanguage)")
+
+            Button("Select Language") {
+                showDialog = true
+            }
+            .buttonStyle(.bordered)
+
+            .confirmationDialog("Choose your preferred language", isPresented: $showDialog) {
+                Button("English") { selectedLanguage = "English" }
+                Button("Russian") { selectedLanguage = "Russian" }
+                Button("Uzbek") { selectedLanguage = "Uzbek" }
+                Button("Cancel", role: .cancel) { }
+            }
+        }
+        .padding()
+    }
+}
+
+
+struct ImagePickerDialogView: View {
+    @State private var showDialog = false
+    @State private var source = ""
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Source: \(source)")
+
+            Button("Pick Image") {
+                showDialog = true
+            }
+            .buttonStyle(.bordered)
+
+            .confirmationDialog("Select image source", isPresented: $showDialog) {
+                Button("Camera") { source = "Camera" }
+                Button("Gallery") { source = "Gallery" }
+                Button("Cancel", role: .cancel) { }
+            }
+        }
+        .padding()
+    }
+}
+
+
 #Preview {
-    MultipleOptionsView()
+    ImagePickerDialogView()
 }
