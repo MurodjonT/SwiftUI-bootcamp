@@ -132,6 +132,26 @@ struct ImagePickerDialogView: View {
 }
 
 
+struct ImagePickerDialogView2: View {
+    @State private var showDialog = false
+    @State private var source = ""
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Source: \(source)")
+            Button("Pick Image", systemImage: "photo") {
+                showDialog = true
+            }
+            .buttonStyle(.bordered)
+            .confirmationDialog("Select image source", isPresented: $showDialog, titleVisibility: .visible) {
+                Button("Camera", systemImage: "person.crop.circle") { source = "Camera" }
+                Button("Gallery") { source = "Gallery" }
+                Button("Cancel", role: .cancel) { }
+            }
+        }
+  
+    }
+}
 #Preview {
-    ImagePickerDialogView()
+    ImagePickerDialogView2()
 }
