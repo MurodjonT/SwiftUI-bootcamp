@@ -102,6 +102,7 @@ struct SettingsView: View {
             }
               
                 .background(Color(.systemGray6))
+                .border(Color.gray.opacity(0.2), width: 1)
 //
 //            List {
 //                Section {
