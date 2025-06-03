@@ -1,24 +1,20 @@
 //
-//  CounterModel.swift
+//  EnvironmentObjectBootcamp.swift
 //  SwiftUI bootcamp
 //
 //  Created by Murodjon Turobov on 03/06/25.
 //
-
 import Foundation
-import Combine
 import SwiftUI
 
-class CounterModel: ObservableObject {
+class CounterModel2: ObservableObject {
+    
     @Published var count = 0
 }
 
+struct HomeView2: View {
+    @EnvironmentObject var model: CounterModel2
 
-
-struct HomeView: View {
-    @ObservedObject var model: CounterModel
-
-    
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -32,7 +28,7 @@ struct HomeView: View {
                 }
 
                 NavigationLink("Go to Detail View") {
-                    DetailView2(model: model)
+                    DetailView3()
                 }
             }
             .padding()
@@ -41,9 +37,8 @@ struct HomeView: View {
 }
 
 
-
-struct DetailView2: View {
-    @ObservedObject var model: CounterModel
+struct DetailView3: View {
+    @EnvironmentObject var model: CounterModel2
 
     var body: some View {
         VStack(spacing: 20) {
@@ -62,5 +57,8 @@ struct DetailView2: View {
 
 
 #Preview {
-    HomeView(model: CounterModel())
+    let model = CounterModel2()
+    return HomeView2()
+        .environmentObject(model)
 }
+
