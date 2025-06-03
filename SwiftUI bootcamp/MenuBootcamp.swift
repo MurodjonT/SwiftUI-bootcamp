@@ -13,6 +13,7 @@ struct MenuBootcamp: View {
     }
 }
 
+
 #Preview {
     MenuBootcamp()
 }

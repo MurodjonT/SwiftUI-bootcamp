@@ -11,7 +11,7 @@ import SwiftUI
 struct SwiftUI_bootcampApp: App {
     var body: some Scene {
         WindowGroup {
-            SettingsView()
+            ProfileView()
         }
     }
 }
