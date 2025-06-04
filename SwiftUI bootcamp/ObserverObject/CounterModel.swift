@@ -52,7 +52,7 @@ struct DetailView2: View {
 
             Text("Count: \(model.count)")
 
-            Button("Decrease") {
+            Button("➖ Decrease") {
                 model.count -= 1
             }
         }
