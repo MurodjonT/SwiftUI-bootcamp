@@ -5,6 +5,7 @@
 //  Created by Murodjon Turobov on 09/06/25.
 //
 import SwiftUI
+import Foundation
 
 struct MainView: View {
     @AppStorage("hasSeenOnboarding") var hasSeenOnboarding: Bool = false
@@ -86,6 +87,8 @@ struct HomeView3: View {
         .padding()
     }
 }
+
+
 
 #Preview {
     MainView()
