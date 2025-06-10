@@ -17,7 +17,7 @@ struct ContentView: View {
     @State private var alertMessage = ""
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
                 Section(header: Text("Profile Information")) {
                     TextField("Name", text: $name)
@@ -67,7 +67,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationTitle("Foydalanuvchi Profili")
+            .navigationTitle("User Profile")
             .navigationBarTitleDisplayMode(.large)
             .alert("Message", isPresented: $showAlert) {
                 Button("OK") { }
